@@ -1,0 +1,10 @@
+{
+ "version": "1.0",
+ "type": "rich",
+ "title": "Тилу немає — карта загибелі журналістів",
+ "provider_name": "PRESS. Незахищені",
+ "provider_url": "https://mariiafrl.github.io/press-map/",
+ "width": 1200,
+ "height": 720,
+ "html": "<iframe src=\"https://mariiafrl.github.io/press-map/\" width=\"1200\" height=\"720\" style=\"border:0;width:100%;max-width:100%\" loading=\"lazy\" allowfullscreen></iframe>"
+}
