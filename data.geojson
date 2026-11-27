@@ -1,0 +1,357 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.5234,
+     50.4501
+    ]
+   },
+   "properties": {
+    "t": "media",
+    "name": "Київська телевежа",
+    "org": "телерадіомовлення",
+    "date": "2022-03-01",
+    "dl": "01.03.2022",
+    "place": "Київ, Бабин Яр",
+    "what": "Ракетний удар поруч із телевежею: загинули п’ятеро людей, частина мовлення припинилася.",
+    "src": "Радіо Свобода",
+    "url": "https://www.rferl.org/a/ukraine-kyiv-/31730795.html",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.2506,
+     50.5218
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Брент Рено",
+    "org": "документаліст, США",
+    "date": "2022-03-13",
+    "dl": "13.03.2022",
+    "place": "Ірпінь, Київщина",
+    "what": "Загинув від пострілів російських військових, коли знімав евакуацію цивільних.",
+    "src": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Brent_Renaud",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.4483,
+     50.6405
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Макс Левін",
+    "org": "фотожурналіст, LB.ua, Reuters",
+    "date": "2022-03-13",
+    "dl": "бл. 13.03.2022",
+    "place": "Гута-Межигірська, Київщина",
+    "what": "Зник 13 березня, тіло знайшли 1 квітня. За попередніми даними, убитий російськими військовими.",
+    "src": "CPJ",
+    "url": "https://cpj.org/data/people/maks-levin/",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.316,
+     50.557
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "П’єр Закжевський, Олександра Кувшинова",
+    "org": "Fox News",
+    "date": "2022-03-14",
+    "dl": "14.03.2022",
+    "place": "Горенка, Київщина",
+    "what": "Автомобіль знімальної групи Fox News потрапив під обстріл. Кореспондент Бенджамін Голл поранений.",
+    "src": "CPJ",
+    "url": "https://cpj.org/2022/03/attack-on-fox-news-team-in-ukraine-kills-journalists-pierre-zakrzewski-oleksandra-kuvshynova-correspondent-benjamin-hall-injured/",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.5234,
+     50.4501
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Оксана Бауліна",
+    "org": "The Insider",
+    "date": "2022-03-23",
+    "dl": "23.03.2022",
+    "place": "Київ, Поділ",
+    "what": "Загинула під ракетним обстрілом, коли знімала наслідки попереднього удару.",
+    "src": "Еспресо",
+    "url": "https://espreso.tv/u-kievi-pid-vorozhim-obstrilom-zaginula-zhurnalistka-rosiyskogo-vidannya-the-insider",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     37.5434,
+     47.0971
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Мантас Кведаравічюс",
+    "org": "документаліст, Литва",
+    "date": "2022-03-30",
+    "dl": "28.03–02.04.2022",
+    "place": "Маріуполь",
+    "what": "Убитий в оточеному Маріуполі, де знімав продовження фільму «Маріуполіс».",
+    "src": "CPJ",
+    "url": "https://cpj.org/data/people/mantas-kvedaravicius/",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.5234,
+     50.4501
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Віра Гирич",
+    "org": "Радіо Свобода",
+    "date": "2022-04-28",
+    "dl": "28.04.2022",
+    "place": "Київ, Шевченківський район",
+    "what": "Російська ракета влучила в житловий будинок, де вона жила.",
+    "src": "CPJ",
+    "url": "https://cpj.org/data/people/vira-hyrych/",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     38.4419,
+     48.9047
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Фредерік Леклерк-Імгоф",
+    "org": "BFMTV, Франція",
+    "date": "2022-05-30",
+    "dl": "30.05.2022",
+    "place": "дорога на Лисичанськ, Луганщина",
+    "what": "Смертельно поранений осколком, коли знімав гуманітарну евакуацію в броньованому транспорті.",
+    "src": "CPJ",
+    "url": "https://cpj.org/data/people/frederic-leclerc-imhoff/",
+    "year": 2022
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     37.8357,
+     48.5867
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Арман Солден",
+    "org": "AFP",
+    "date": "2023-05-09",
+    "dl": "09.05.2023",
+    "place": "біля Часового Яру, Донеччина",
+    "what": "Загинув під ракетним обстрілом поблизу передової.",
+    "src": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Arman_Soldin",
+    "year": 2023
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     34.6566,
+     47.4986
+    ]
+   },
+   "properties": {
+    "t": "captivity",
+    "name": "Вікторія Рощина",
+    "org": "незалежна журналістка, Українська правда, hromadske",
+    "date": "2023-08-03",
+    "dl": "зникла 03.08.2023",
+    "place": "Енергодар (окупована Запорізька обл.)",
+    "what": "Захоплена окупантами в Енергодарі, утримувалася в Мелітополі й Таганрозі. Померла в полоні у вересні 2024 року.",
+    "src": "Front Line Defenders",
+    "url": "https://frontlinedefenders.org/en/case/ukrainian-whrd-and-journalist-victoria-roshchyna-forcibly-disappeared-trying-get-through-russia",
+    "year": 2023
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     36.2304,
+     49.9935
+    ]
+   },
+   "properties": {
+    "t": "media",
+    "name": "Харківська телевежа",
+    "org": "телерадіомовлення, 240,7 м",
+    "date": "2024-04-22",
+    "dl": "22.04.2024",
+    "place": "Харків",
+    "what": "Ракета Х-59 зруйнувала верхню частину вежі; у регіоні зник цифровий телесигнал.",
+    "src": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kharkiv_TV_Tower",
+    "year": 2024
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     36.2304,
+     49.9935
+    ]
+   },
+   "properties": {
+    "t": "media",
+    "name": "Друкарня «Фактор-Друк»",
+    "org": "видавнича група Vivat",
+    "date": "2024-05-23",
+    "dl": "23.05.2024",
+    "place": "Харків, Основ’янський район",
+    "what": "Ракетний удар убив сімох працівників і знищив понад 50 тисяч книжок.",
+    "src": "Kyiv Independent",
+    "url": "https://kyivindependent.com/russias-attack-on-kharkiv-printing-house-puts-publishing-industry-at-risk",
+    "year": 2024
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     37.5848,
+     48.7389
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Райан Еванс",
+    "org": "радник з безпеки, Reuters",
+    "date": "2024-08-24",
+    "dl": "24.08.2024",
+    "place": "Краматорськ, готель «Сапфір»",
+    "what": "Російська ракета влучила в готель, де жила знімальна група Reuters. Ще троє журналістів поранені.",
+    "src": "CPJ",
+    "url": "https://cpj.org/data/people/ryan-evans/",
+    "year": 2024
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     37.5848,
+     48.7389
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Альона Грамова (Олена Губанова), Євген Кармазін",
+    "org": "телеканал Freedom",
+    "date": "2025-10-23",
+    "dl": "23.10.2025",
+    "place": "Краматорськ, АЗС",
+    "what": "Дрон «Ланцет» уразив автомобіль знімальної групи, яка знімала наслідки попереднього удару.",
+    "src": "CPJ",
+    "url": "https://cpj.org/data/people/olena-hramova/",
+    "year": 2025
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.5234,
+     50.4501
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Марія Ївженко",
+    "org": "ексжурналістка NV Бізнес",
+    "date": "2026-09-25",
+    "dl": "25.09.2026",
+    "place": "Київ, бізнес-центр",
+    "what": "Загинула внаслідок удару російського дрона по бізнес-центру, у якому працювала.",
+    "src": "Українська правда",
+    "url": "https://life.pravda.com.ua/society/u-kiyevi-cherez-ataku-po-biznes-centru-zaginula-mariya-jivzhenko-317942",
+    "year": 2026
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.7233,
+     46.4825
+    ]
+   },
+   "properties": {
+    "t": "killed",
+    "name": "Христина Лисенко",
+    "org": "телеканал «Перший міський»",
+    "date": "2026-11-18",
+    "dl": "18.11.2026",
+    "place": "Одеса",
+    "what": "Загинула від удару «Шахеда», коли йшла на роботу; до редакції лишалося три квартали.",
+    "src": "RSF",
+    "url": "https://rsf.org/en/ukraine-tv-producer-khrystyna-lysenko-killed-russian-strike-odesa",
+    "year": 2026
+   }
+  }
+ ]
+}
