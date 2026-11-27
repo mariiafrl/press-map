@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRESS. Незахищені — карта</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#16181b;--panel:#1e2125;--ink:#ecebe6;--mute:#a3a6ab;--line:#33373d;--yellow:#f2c230;--red:#e5483b;--amber:#f2c230;--blue:#5fa8d3}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:15px/1.5 Lato,system-ui,sans-serif}
+.wrap{display:grid;grid-template-columns:380px minmax(0,1fr);height:100vh;height:100dvh}
+aside{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
+header{padding:22px 22px 14px}
+h1{margin:0 0 6px;font-weight:900;font-size:26px;line-height:1.1;color:var(--yellow)}
+header p{margin:0;color:var(--mute);font-size:14px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 12px}
+.years{border-bottom:1px solid var(--line);padding-bottom:14px}
+.years button{min-width:58px;justify-content:center}
+.marker-cluster-small,.marker-cluster-medium{background:#f2c23055}.marker-cluster-small div,.marker-cluster-medium div{background:#f2c230;color:#16181b;font:900 13px Lato,sans-serif}
+.filters button{display:flex;align-items:center;gap:8px;min-height:36px;padding:6px 12px;border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--ink);font:700 13px Lato,sans-serif;cursor:pointer}
+.filters button[aria-pressed=false]{opacity:.45}
+.filters button:focus-visible,.item:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none;border:2px solid #fff3}
+.d-killed{background:var(--red)}.d-captivity{background:var(--amber)}.d-media{background:var(--blue)}
+.list{overflow-y:auto;flex:1;padding:6px 0}
+.item{display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;padding:12px 22px;cursor:pointer;border-left:3px solid transparent}
+.item:hover,.item.on{background:#262a2f;border-left-color:var(--yellow)}
+.item .dot{margin-top:5px}
+.item b{display:block;font-size:15px}
+.item small{color:var(--mute);font-size:13px}
+.item[hidden]{display:none}
+footer{padding:12px 22px;border-top:1px solid var(--line);color:var(--mute);font-size:12px}
+#map{height:100%;background:#2a2d31}
+.leaflet-popup-content-wrapper{background:var(--panel);color:var(--ink);border-radius:6px}
+.leaflet-popup-tip{background:var(--panel)}
+.leaflet-popup-content{margin:14px 16px;font:14px/1.5 Lato,sans-serif;min-width:220px}
+.pop h3{margin:0 0 2px;font-size:16px;color:var(--yellow)}
+.pop .meta{color:var(--mute);font-size:13px;margin-bottom:8px}
+.pop p{margin:0 0 8px;font-family:'PT Serif',serif}
+.pop a{color:var(--yellow)}
+.pop .approx{color:var(--mute);font-size:12px;font-style:italic}
+.leaflet-container a.leaflet-popup-close-button{color:var(--mute)}
+.count{font-weight:900;color:var(--ink)}
+@media(max-width:760px){
+ .wrap{grid-template-columns:1fr;grid-template-rows:55% 45%}
+ #map{grid-row:1}aside{grid-row:2;border-right:0;border-top:1px solid var(--line)}
+ header{padding:14px 16px 10px}h1{font-size:20px}
+ .filters{padding:0 16px 10px}.item{padding:10px 16px}footer{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+ <header>
+  <h1>Тилу немає</h1>
+  <p>Місця загибелі журналістів і медійників, полону та ударів по медійних об’єктах у війні росії проти України, 2022–2026. Показано <span class="count" id="cnt"></span>.</p>
+ </header>
+ <div class="filters" role="group" aria-label="Фільтр за типом">
+  <button type="button" data-t="killed" aria-pressed="true"><span class="dot d-killed"></span>Загибель</button>
+  <button type="button" data-t="captivity" aria-pressed="true"><span class="dot d-captivity"></span>Полон</button>
+  <button type="button" data-t="media" aria-pressed="true"><span class="dot d-media"></span>Медійні об’єкти</button>
+ </div>
+ <div class="filters years" role="group" aria-label="Фільтр за роком" id="years"></div>
+ <div class="list" id="list"></div>
+ <footer>Дані: CPJ, RSF, ІМІ, Wikipedia, медіа (джерело — у кожній точці). Координати свідомо округлено до центру населеного пункту. Підкладка © учасники OpenStreetMap.</footer>
+</aside>
+<div id="map" role="region" aria-label="Карта"></div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script>
+{
+const DATA={"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.5234, 50.4501]}, "properties": {"t": "media", "name": "Київська телевежа", "org": "телерадіомовлення", "date": "2022-03-01", "dl": "01.03.2022", "place": "Київ, Бабин Яр", "what": "Ракетний удар поруч із телевежею: загинули п’ятеро людей, частина мовлення припинилася.", "src": "Радіо Свобода", "url": "https://www.rferl.org/a/ukraine-kyiv-/31730795.html", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.2506, 50.5218]}, "properties": {"t": "killed", "name": "Брент Рено", "org": "документаліст, США", "date": "2022-03-13", "dl": "13.03.2022", "place": "Ірпінь, Київщина", "what": "Загинув від пострілів російських військових, коли знімав евакуацію цивільних.", "src": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Brent_Renaud", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.4483, 50.6405]}, "properties": {"t": "killed", "name": "Макс Левін", "org": "фотожурналіст, LB.ua, Reuters", "date": "2022-03-13", "dl": "бл. 13.03.2022", "place": "Гута-Межигірська, Київщина", "what": "Зник 13 березня, тіло знайшли 1 квітня. За попередніми даними, убитий російськими військовими.", "src": "CPJ", "url": "https://cpj.org/data/people/maks-levin/", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.316, 50.557]}, "properties": {"t": "killed", "name": "П’єр Закжевський, Олександра Кувшинова", "org": "Fox News", "date": "2022-03-14", "dl": "14.03.2022", "place": "Горенка, Київщина", "what": "Автомобіль знімальної групи Fox News потрапив під обстріл. Кореспондент Бенджамін Голл поранений.", "src": "CPJ", "url": "https://cpj.org/2022/03/attack-on-fox-news-team-in-ukraine-kills-journalists-pierre-zakrzewski-oleksandra-kuvshynova-correspondent-benjamin-hall-injured/", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.5234, 50.4501]}, "properties": {"t": "killed", "name": "Оксана Бауліна", "org": "The Insider", "date": "2022-03-23", "dl": "23.03.2022", "place": "Київ, Поділ", "what": "Загинула під ракетним обстрілом, коли знімала наслідки попереднього удару.", "src": "Еспресо", "url": "https://espreso.tv/u-kievi-pid-vorozhim-obstrilom-zaginula-zhurnalistka-rosiyskogo-vidannya-the-insider", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [37.5434, 47.0971]}, "properties": {"t": "killed", "name": "Мантас Кведаравічюс", "org": "документаліст, Литва", "date": "2022-03-30", "dl": "28.03–02.04.2022", "place": "Маріуполь", "what": "Убитий в оточеному Маріуполі, де знімав продовження фільму «Маріуполіс».", "src": "CPJ", "url": "https://cpj.org/data/people/mantas-kvedaravicius/", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.5234, 50.4501]}, "properties": {"t": "killed", "name": "Віра Гирич", "org": "Радіо Свобода", "date": "2022-04-28", "dl": "28.04.2022", "place": "Київ, Шевченківський район", "what": "Російська ракета влучила в житловий будинок, де вона жила.", "src": "CPJ", "url": "https://cpj.org/data/people/vira-hyrych/", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [38.4419, 48.9047]}, "properties": {"t": "killed", "name": "Фредерік Леклерк-Імгоф", "org": "BFMTV, Франція", "date": "2022-05-30", "dl": "30.05.2022", "place": "дорога на Лисичанськ, Луганщина", "what": "Смертельно поранений осколком, коли знімав гуманітарну евакуацію в броньованому транспорті.", "src": "CPJ", "url": "https://cpj.org/data/people/frederic-leclerc-imhoff/", "year": 2022}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [37.8357, 48.5867]}, "properties": {"t": "killed", "name": "Арман Солден", "org": "AFP", "date": "2023-05-09", "dl": "09.05.2023", "place": "біля Часового Яру, Донеччина", "what": "Загинув під ракетним обстрілом поблизу передової.", "src": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Arman_Soldin", "year": 2023}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [34.6566, 47.4986]}, "properties": {"t": "captivity", "name": "Вікторія Рощина", "org": "незалежна журналістка, Українська правда, hromadske", "date": "2023-08-03", "dl": "зникла 03.08.2023", "place": "Енергодар (окупована Запорізька обл.)", "what": "Захоплена окупантами в Енергодарі, утримувалася в Мелітополі й Таганрозі. Померла в полоні у вересні 2024 року.", "src": "Front Line Defenders", "url": "https://frontlinedefenders.org/en/case/ukrainian-whrd-and-journalist-victoria-roshchyna-forcibly-disappeared-trying-get-through-russia", "year": 2023}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [36.2304, 49.9935]}, "properties": {"t": "media", "name": "Харківська телевежа", "org": "телерадіомовлення, 240,7 м", "date": "2024-04-22", "dl": "22.04.2024", "place": "Харків", "what": "Ракета Х-59 зруйнувала верхню частину вежі; у регіоні зник цифровий телесигнал.", "src": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Kharkiv_TV_Tower", "year": 2024}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [36.2304, 49.9935]}, "properties": {"t": "media", "name": "Друкарня «Фактор-Друк»", "org": "видавнича група Vivat", "date": "2024-05-23", "dl": "23.05.2024", "place": "Харків, Основ’янський район", "what": "Ракетний удар убив сімох працівників і знищив понад 50 тисяч книжок.", "src": "Kyiv Independent", "url": "https://kyivindependent.com/russias-attack-on-kharkiv-printing-house-puts-publishing-industry-at-risk", "year": 2024}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [37.5848, 48.7389]}, "properties": {"t": "killed", "name": "Райан Еванс", "org": "радник з безпеки, Reuters", "date": "2024-08-24", "dl": "24.08.2024", "place": "Краматорськ, готель «Сапфір»", "what": "Російська ракета влучила в готель, де жила знімальна група Reuters. Ще троє журналістів поранені.", "src": "CPJ", "url": "https://cpj.org/data/people/ryan-evans/", "year": 2024}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [37.5848, 48.7389]}, "properties": {"t": "killed", "name": "Альона Грамова (Олена Губанова), Євген Кармазін", "org": "телеканал Freedom", "date": "2025-10-23", "dl": "23.10.2025", "place": "Краматорськ, АЗС", "what": "Дрон «Ланцет» уразив автомобіль знімальної групи, яка знімала наслідки попереднього удару.", "src": "CPJ", "url": "https://cpj.org/data/people/olena-hramova/", "year": 2025}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.5234, 50.4501]}, "properties": {"t": "killed", "name": "Марія Ївженко", "org": "ексжурналістка NV Бізнес", "date": "2026-09-25", "dl": "25.09.2026", "place": "Київ, бізнес-центр", "what": "Загинула внаслідок удару російського дрона по бізнес-центру, у якому працювала.", "src": "Українська правда", "url": "https://life.pravda.com.ua/society/u-kiyevi-cherez-ataku-po-biznes-centru-zaginula-mariya-jivzhenko-317942", "year": 2026}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [30.7233, 46.4825]}, "properties": {"t": "killed", "name": "Христина Лисенко", "org": "телеканал «Перший міський»", "date": "2026-11-18", "dl": "18.11.2026", "place": "Одеса", "what": "Загинула від удару «Шахеда», коли йшла на роботу; до редакції лишалося три квартали.", "src": "RSF", "url": "https://rsf.org/en/ukraine-tv-producer-khrystyna-lysenko-killed-russian-strike-odesa", "year": 2026}}]};
+const COL={killed:'#e5483b',captivity:'#f2c230',media:'#5fa8d3'};
+const LBL={killed:'Загибель',captivity:'Полон',media:'Удар по медійному об’єкту'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const map=L.map('map',{zoomControl:true,scrollWheelZoom:true}).setView([48.6,33.5],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+const on={killed:true,captivity:true,media:true};
+const years=[...new Set(DATA.features.map(f=>f.properties.year))].sort();const yon={};years.forEach(y=>yon[y]=true);
+document.getElementById('years').innerHTML=years.map(y=>`<button type="button" data-y="${y}" aria-pressed="true">${y}</button>`).join('');
+const cluster=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:40,spiderfyOnMaxZoom:true});map.addLayer(cluster);
+const items=[];
+const list=document.getElementById('list');
+DATA.features.forEach((f,i)=>{
+ const p=f.properties;const [lon,lat]=f.geometry.coordinates;
+ const m=L.circleMarker([lat,lon],{radius:p.t==='media'?9:8,color:'#fff',weight:1.5,fillColor:COL[p.t],fillOpacity:.95});
+ m.bindPopup(`<div class="pop"><h3>${esc(p.name)}</h3><div class="meta">${esc(LBL[p.t])} · ${esc(p.dl)} · ${esc(p.place)}<br>${esc(p.org)}</div><p>${esc(p.what)}</p><a href="${esc(p.url)}" target="_blank" rel="noopener">Джерело: ${esc(p.src)}</a><div class="approx">Координати округлено до центру населеного пункту.</div></div>`);
+ const el=document.createElement('div');el.className='item';el.tabIndex=0;el.setAttribute('role','button');
+ el.innerHTML=`<span class="dot d-${esc(p.t)}"></span><div><b>${esc(p.name)}</b><small>${esc(p.dl)} · ${esc(p.place)}</small></div>`;
+ const go=()=>{cluster.zoomToShowLayer(m,()=>m.openPopup());items.forEach(x=>x.el.classList.toggle('on',x.el===el))};
+ el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
+ m.on('click',()=>items.forEach(x=>x.el.classList.toggle('on',x.el===el)));
+ list.appendChild(el);items.push({p,m,el});
+});
+const bounds=L.latLngBounds(items.map(x=>x.m.getLatLng()));
+map.fitBounds(bounds,{padding:[30,30]});
+function apply(){let n=0;cluster.clearLayers();const vis=[];items.forEach(x=>{const v=on[x.p.t]&&yon[x.p.year];x.el.hidden=!v;if(v){vis.push(x.m);n++}});cluster.addLayers(vis);document.getElementById('cnt').textContent=n+' з '+items.length+' точок'}
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.t){const t=b.dataset.t;on[t]=!on[t];b.setAttribute('aria-pressed',on[t])}else{const y=+b.dataset.y;yon[y]=!yon[y];b.setAttribute('aria-pressed',yon[y])}apply()}));
+apply();
+}
+</script>
+</body>
+</html>
